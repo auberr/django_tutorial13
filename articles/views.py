@@ -13,10 +13,13 @@ class ArticleView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        author = get_object_or_404(Article, author=request.author)
+        print(request.user)
+        # print(request.username)
+        # print(request.id)
         serializer = ArticleCreateSerializer(data=request.data)
         if serializer.is_valid(): 
-            serializer.save(author=request.author)
+            serializer.save(author=request.user)
             return Response(serializer.data)
         else:
             return Response(serializer.errors)
+        
