@@ -4,15 +4,21 @@ from articles.models import Article
 # 방법 1로 할경우에 author를 띄우는 방법?
 
 class ArticleSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Article
         fields = '__all__'
 
 
 class ArticleCreateSerializer(serializers.ModelSerializer):
+    author = serializers.SerializerMethodField()
+
+    def get_author(self, obj):
+        return obj.author.username
+    
     class Meta:
         model = Article
-        fields = ("title", "content", "id")
+        fields = ("title", "content", "id", "author")
     
 
 # 방법2 
