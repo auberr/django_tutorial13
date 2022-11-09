@@ -14,15 +14,15 @@ class ArticleCreateSerializer(serializers.ModelSerializer):
     author = serializers.SerializerMethodField()
 
     def get_author(self, obj):
-        return obj.author.username
+        return obj.author.email
     
     class Meta:
         model = Article
-        fields = ("title", "content", "id", "author")
+        fields = ("title", "content", "id", "author", "category")
     
 
 # 방법2 
-# class ArticleSerializer(serializers.ModelSerializer):
+# class ArticleCreateSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Article
 #         fields = '__all__'
