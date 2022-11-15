@@ -1,5 +1,7 @@
 from django.db import models
 from users.models import User # 나중에 커스텀 유저를 사용할때 다 바꿔야 된다.
+from django.urls import reverse
+
 # from django.contrib.auth import get_user_model # 지금 유저모델을 사용
 # Create your models here.
 
@@ -15,6 +17,9 @@ class Article(models.Model):
     title = models.CharField(max_length=50)
     category = models.ManyToManyField(Category, verbose_name="카테고리")
     content = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse('article_detail_view', kwargs={"pk":self.pk})
 
     def __str__(self):
         return f"{self.title} {self.user.username} 님이 작성하신 글입니다."
